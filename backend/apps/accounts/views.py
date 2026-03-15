@@ -16,7 +16,6 @@ from .serializers import (
 from core.email_service import EmailService
 
 User = get_user_model()
-email_service = EmailService()
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
@@ -45,6 +44,7 @@ class RegisterView(APIView):
                 purpose='verify_email',
                 expires_at=timezone.now() + timedelta(minutes=10)
             )
+            email_service = EmailService()
             email_service.send_otp_email(user.email, otp_code)
             
             return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
@@ -74,6 +74,7 @@ class VerifyEmailView(APIView):
                 otp.is_used = True
                 otp.save()
                 
+                email_service = EmailService()
                 email_service.send_welcome_email(user.email, user.username)
                 return Response({"detail": "Email successfully verified."}, status=status.HTTP_200_OK)
             return Response({"detail": "Invalid or expired OTP."}, status=status.HTTP_400_BAD_REQUEST)
