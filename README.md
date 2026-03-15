@@ -1,26 +1,30 @@
-# 🧠 BrainForge — AI-Powered Exam Excellence Platform
+# 🧠 BrainForge — AI-Powered Quiz platform
 
-> A cutting-edge full-stack application that leverages AI to generate personalized quizzes and track academic progress — from instant quiz generation to global leaderboards — all in one seamless experience.
+> A full-stack application that leverages AI to generate personalized quizzes and track academic progress — from instant quiz generation to global leaderboards — all in one seamless experience.
 
 ---
 
 ## 🔗 Live Demo & Screenshots
 
-🌐 **Deployed App:** [brainforge-theta.vercel.app](https://brainforge-theta.vercel.app)
+🌐 **Deployed App:** [brainforge.vercel.app](https://brain-forge-silk.vercel.app)
 
-| Sign In | Dashboard | Quiz Generation |
-|-----------------|----------------|-----------------|
-| ![Login Page](https://github.com/user-attachments/assets/25900a02-1e51-46e4-88a9-ebe5a2a52ea8) | ![Dashboard](https://github.com/user-attachments/assets/79e86f56-429a-43a6-a075-31699344dcef) | ![Generation](https://github.com/user-attachments/assets/9542b476-28b8-4f06-9576-05ec2cee9eed) |
+| Sign In | Dashboard | History | Quiz Generation | Leaderboard | My profile |
+|-----------------|----------------|-----------------||----------------|----------------|----------------|
+|  |  |  |  |  |  |
 
 ---
 
 ## 🧱 Tech Stack
 
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 ![Groq](https://img.shields.io/badge/Groq_AI-f55036?style=for-the-badge&logo=groq&logoColor=white)
+![Zustand](https://img.shields.io/badge/Zustand-433E38?style=for-the-badge&logo=react&logoColor=white)
+![Resend](https://img.shields.io/badge/Resend-000000?style=for-the-badge&logo=resend&logoColor=white)
+![Uptime Robot](https://img.shields.io/badge/Uptime%20Robot-3BD671?style=for-the-badge&logo=uptimerobot&logoColor=white)
 ![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
@@ -42,20 +46,6 @@ python manage.py runserver
 cd frontend
 npm install
 npm run dev
-```
-
-**Environment Variables**
-
-`backend/.env`
-```
-DATABASE_URL=your_supabase_postgresql_url
-GROQ_API_KEY=your_groq_api_key
-RESEND_API_KEY=your_resend_api_key
-```
-
-`frontend/.env`
-```
-NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
 ---
@@ -126,5 +116,5 @@ BrainForge/
 
 MIT License © 2026
 
-**D Nivethitha** — [LinkedIn](https://www.linkedin.com/in/nivethitha-d-306a46326/) · [GitHub](https://github.com/nivethitha-code) · [Email](mailto:nivethithadharmarajan25@gmail.com) 
+**D Nivethitha** — [LinkedIn](https://www.linkedin.com/in/nivethitha-d-306a46326/) · [GitHub](https://github.com/nivethitha-code) · [Email](nivethithadharmarajan25@gmail.com) 
 
