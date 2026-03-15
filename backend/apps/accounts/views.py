@@ -32,6 +32,13 @@ class RegisterView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
+        email = request.data.get('email')
+        if email:
+            # If user exists but isn't verified, delete them so they can register again
+            unverified_user = User.objects.filter(email=email, is_verified=False).first()
+            if unverified_user:
+                unverified_user.delete()
+
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
