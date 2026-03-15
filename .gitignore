@@ -48,3 +48,6 @@ backend/db.sqlite3-journal
 
 # Supabase
 .supabase/
+
+#
+ERD.png

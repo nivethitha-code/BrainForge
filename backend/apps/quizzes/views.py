@@ -13,7 +13,6 @@ from .serializers import QuizSerializer, AttemptSerializer
 from core.groq_client import GroqClient
 
 User = get_user_model()
-groq_client = GroqClient()
 
 class QuizViewSet(viewsets.ModelViewSet):
     serializer_class = QuizSerializer
@@ -71,7 +70,9 @@ class QuizViewSet(viewsets.ModelViewSet):
         try:
             with transaction.atomic():
                 # Generate with AI
+                groq_client = GroqClient()
                 ai_response = groq_client.generate_quiz(topic, count, difficulty, options_count)
+
                 if not ai_response:
                     raise Exception("AI generation failed")
                 
