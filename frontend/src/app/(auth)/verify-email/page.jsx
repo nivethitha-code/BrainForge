@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import api from '@/lib/api';
 
-export default function VerifyEmailPage() {
+function VerifyEmailPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
@@ -79,10 +79,11 @@ export default function VerifyEmailPage() {
 }
 
 // Wrap in Suspense for searchParams
-function VerifyEmailWrapper() {
+export default function VerifyEmailWrapper() {
   return (
     <React.Suspense fallback={<div>Loading...</div>}>
       <VerifyEmailPage />
     </React.Suspense>
   )
 }
+
