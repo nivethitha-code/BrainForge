@@ -13,7 +13,7 @@ from .serializers import (
     RegisterSerializer, UserSerializer, VerifyEmailSerializer, 
     ForgotPasswordSerializer, ResetPasswordSerializer
 )
-from core.email_service import EmailService
+
 
 User = get_user_model()
 
@@ -44,6 +44,7 @@ class RegisterView(APIView):
                 purpose='verify_email',
                 expires_at=timezone.now() + timedelta(minutes=10)
             )
+            from core.email_service import EmailService
             email_service = EmailService()
             email_service.send_otp_email(user.email, otp_code)
             
@@ -74,6 +75,7 @@ class VerifyEmailView(APIView):
                 otp.is_used = True
                 otp.save()
                 
+                from core.email_service import EmailService # This line was already present, ensuring it remains.
                 email_service = EmailService()
                 email_service.send_welcome_email(user.email, user.username)
                 return Response({"detail": "Email successfully verified."}, status=status.HTTP_200_OK)

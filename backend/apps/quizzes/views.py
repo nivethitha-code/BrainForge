@@ -10,7 +10,7 @@ from rest_framework.decorators import action
 
 from .models import Quiz, Question, Option, Attempt, Answer
 from .serializers import QuizSerializer, AttemptSerializer
-from core.groq_client import GroqClient
+
 
 User = get_user_model()
 
@@ -70,7 +70,9 @@ class QuizViewSet(viewsets.ModelViewSet):
         try:
             with transaction.atomic():
                 # Generate with AI
+                from core.groq_client import GroqClient
                 groq_client = GroqClient()
+
                 ai_response = groq_client.generate_quiz(topic, count, difficulty, options_count)
 
                 if not ai_response:
