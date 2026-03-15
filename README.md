@@ -48,8 +48,6 @@ npm run dev
 
 ## 🔌 API Structure
 
-Base URL: `https://brainforge-y460.onrender.com/api`
-
 **Auth**
 | Method | Endpoint | Description |
 |--------|----------|-------------|
