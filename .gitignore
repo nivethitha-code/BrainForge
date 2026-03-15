@@ -3,28 +3,30 @@
 .env.local
 .env.*.local
 .DS_Store
+Thumbs.db
 *.log
 .vscode/
 .idea/
+*.tmp
+/tmp/
 
-# Frontend (Next.js)
-frontend/node_modules/
-frontend/.next/
+# Directories (Ignore everywhere)
+node_modules/
+venv/
+env/
+ENV/
+__pycache__/
+.next/
+.vercel/
+.pytest_cache/
+.eslintcache/
+
+# Frontend specific
 frontend/out/
 frontend/build/
-frontend/.vercel
 frontend/npm-debug.log*
-frontend/yarn-debug.log*
-frontend/yarn-error.log*
-frontend/.pnp*
-frontend/.pnp.js
-frontend/.cache/
 
-# Backend (Django)
-backend/venv/
-backend/env/
-backend/ENV/
-backend/__pycache__/
+# Backend specific
 backend/*.py[cod]
 backend/*$py.class
 backend/.Python
@@ -33,7 +35,6 @@ backend/media/
 backend/static/
 backend/staticfiles/
 backend/celerybeat-schedule
-backend/.pytest_cache/
 backend/htmlcov/
 backend/.tox/
 backend/.coverage
@@ -45,7 +46,5 @@ backend/*.pot
 backend/local_settings.py
 backend/db.sqlite3-journal
 
-# Supabase / Tools
+# Supabase
 .supabase/
-*.tmp
-/tmp/
