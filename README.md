@@ -111,6 +111,16 @@ npm run dev
 
 ---
 
+## ⏭️ Features Skipped & Why
+
+| Feature | Reason |
+|---|---|
+| **Admin Panel** | Skipped to focus on delivering a complete, polished user-facing experience. Admin functionality can be layered on top of the existing API endpoints in a future iteration. |
+| **Classroom / Teacher Mode** | Would require a separate role-based access system, class management, student invitation flows, and a completely different user journey — essentially a second application on top of this one. A solid generalized AI quiz platform was prioritized over a half-finished classroom feature.Mainly due to time constraint |
+| **Real-time Multiplayer** | Would require WebSocket integration which adds significant infrastructure complexity beyond the assignment requirements.Mainly due to time constraint |
+
+---
+
 ## 📚 Key Learnings & Challenges
 
 - **Overcoming Hydration/Prerender Errors**: Fixed a critical Next.js 14 error where `useSearchParams` caused build failures by wrapping components in `<Suspense />` boundaries.
