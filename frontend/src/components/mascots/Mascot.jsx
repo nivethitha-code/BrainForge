@@ -6,7 +6,9 @@ export const Mascot = ({ pose = 'wave', size = 'md', className = '' }) => {
     sm: 'w-24 h-24',
     md: 'w-48 h-48',
     lg: 'w-64 h-64',
-    xl: 'w-96 h-96',
+    xl: 'w-[420px] h-[420px]',
+    '2xl': 'w-96 h-96',
+    auth: 'w-[400px] h-[400px]',
   };
 
   const images = {

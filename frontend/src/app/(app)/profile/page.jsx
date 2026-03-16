@@ -286,7 +286,7 @@ export default function ProfilePage() {
           </div>
         </div>
         <div className="hidden md:flex ml-auto items-start pt-2">
-          <Mascot pose="study" size="md" />
+          <Mascot pose="study" size="xl" />
         </div>
       </div>
 

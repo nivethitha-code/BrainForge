@@ -108,13 +108,15 @@ export default function QuizPreviewPage() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center space-y-6 bg-white rounded-3xl p-6 border border-border-gray shadow-sm h-fit">
-          <Mascot pose="study" size="lg" />
-          <div className="text-center">
-            <h4 className="font-bold text-text-primary">Ready to begin?</h4>
-            <p className="text-xs text-text-muted mt-1">Take a deep breath and start!</p>
+        <div className="flex flex-col items-center space-y-4 bg-white/95 backdrop-blur-sm rounded-3xl p-5 border border-border-gray shadow-sm h-fit relative">
+          <div className="-mt-16 mb-1">
+            <Mascot pose="study" size="lg" className="drop-shadow-2xl scale-110" />
           </div>
-          <Button onClick={handleStart} className="w-full py-6 text-lg" disabled={loading}>
+          <div className="text-center">
+            <h4 className="font-bold text-text-primary text-xl">Ready to begin?</h4>
+            <p className="text-sm text-text-muted mt-1 max-w-[200px] mx-auto">Take a deep breath and give it your best shot!</p>
+          </div>
+          <Button onClick={handleStart} className="w-full py-6 text-lg rounded-2xl shadow-lg ring-offset-2 hover:scale-[1.02] transition-transform" disabled={loading}>
             {loading ? 'Preparing...' : 'Start Quiz'}
           </Button>
           {error && <p className="text-error-red text-xs">{error}</p>}

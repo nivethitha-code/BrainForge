@@ -16,8 +16,8 @@ export const AuthCard = ({ title, description, children, mascotPose = 'wave' }) 
       {/* Left Side - Illustration */}
       <div className="hidden md:flex flex-1 flex-col items-center justify-center p-8 lg:p-12 transition-all relative z-10">
         <div className="relative group">
-          <div className="absolute -inset-16 bg-white/10 rounded-full blur-[80px] group-hover:bg-white/20 transition-all duration-1000"></div>
-          <Mascot pose={mascotPose} size="lg" className="relative drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)]" />
+          <div className="absolute -inset-24 bg-white/10 rounded-full blur-[100px] group-hover:bg-white/20 transition-all duration-1000"></div>
+          <Mascot pose={mascotPose} size="auth" className="relative drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)]" />
         </div>
         <div className="mt-6 text-center max-w-lg">
           <h2 className="text-3xl lg:text-4xl font-black text-white mb-3 tracking-tight drop-shadow-lg">
@@ -33,7 +33,7 @@ export const AuthCard = ({ title, description, children, mascotPose = 'wave' }) 
       <div className="flex-1 flex items-center justify-center p-4 lg:p-6 relative z-10">
         <Card className="w-full max-w-xl py-6 px-10 lg:py-8 lg:px-16 border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.2)] bg-white/95 backdrop-blur-xl rounded-[2.5rem]" hover={false}>
           <div className="md:hidden flex justify-center mb-6">
-            <Mascot pose={mascotPose} size="lg" />
+            <Mascot pose={mascotPose} size="xl" />
           </div>
           <div className="text-text-primary">
             {children}
