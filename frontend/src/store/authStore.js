@@ -11,6 +11,7 @@ export const useAuthStore = create(
       token: null,
       refreshToken: null,
       isLoggedIn: false,
+      isInitializing: true,
       
       setUser: (user) => set({ user, isLoggedIn: !!user }),
       
@@ -142,6 +143,21 @@ export const useAuthStore = create(
           return { success: true };
         } catch (error) {
           return { success: false, error: error.response?.data?.detail || 'Account deletion failed' };
+        }
+      },
+
+      loginWithGoogle: async () => {
+        try {
+          const { data, error } = await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+              redirectTo: window.location.origin + '/dashboard',
+            },
+          });
+          if (error) throw error;
+          return { success: true };
+        } catch (error) {
+          return { success: false, error: error.message };
         }
       },
     }),

@@ -10,11 +10,18 @@ import { useAuthStore } from '@/store/authStore';
 
 export default function LoginPage() {
   const router = useRouter();
-  const login = useAuthStore((state) => state.login);
+  const { isLoggedIn, isInitializing, login } = useAuthStore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Redirect if already logged in
+  React.useEffect(() => {
+    if (!isInitializing && isLoggedIn) {
+      router.push('/dashboard');
+    }
+  }, [isLoggedIn, isInitializing, router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,7 +89,7 @@ export default function LoginPage() {
         <Button 
           variant="outline" 
           className="w-full gap-2"
-          onClick={() => alert('Google login is currently being configured and will be available shortly! Please use Email/Password for now. 💜')}
+          onClick={() => useAuthStore.getState().loginWithGoogle()}
         >
           <img src="https://www.google.com/favicon.ico" className="w-4 h-4" alt="Google" />
           Sign in with Google

@@ -8,14 +8,25 @@ import { useAuthStore } from '@/store/authStore';
 
 export default function AppLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { isLoggedIn } = useAuthStore();
+  const { isLoggedIn, isInitializing } = useAuthStore();
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!isInitializing && !isLoggedIn) {
       router.push('/login');
     }
-  }, [isLoggedIn, router]);
+  }, [isLoggedIn, isInitializing, router]);
+
+  if (isInitializing) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#F8FAFC]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-primary-purple border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-text-muted font-medium animate-pulse">Syncing your account...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!isLoggedIn) return null;
 
