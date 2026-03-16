@@ -4,13 +4,9 @@
 
 ---
 
-## 🔗 Live Demo & Screenshots
+## 🔗 Live Demo
 
 🌐 **Deployed App:** [brainforge.vercel.app](https://brain-forge-silk.vercel.app)
-
-| Sign In | Dashboard | History | Quiz Generation | Leaderboard | My profile |
-|-----------------|----------------|-----------------||----------------|----------------|----------------|
-|  |  |  |  |  |  |
 
 ---
 
@@ -47,6 +43,39 @@ cd frontend
 npm install
 npm run dev
 ```
+
+---
+
+## 🔌 API Structure
+
+**Auth**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | /auth/register/ | Register and trigger OTP email |
+| POST | /auth/verify-email/ | Validate OTP and activate account |
+| POST | /auth/login/ | Login and receive JWT tokens |
+| POST | /auth/token/refresh/ | Refresh expired access token |
+| POST | /auth/accept-terms/ | Store terms acceptance (confirmed) |
+| GET | /auth/me/ | Get current user profile |
+| PATCH | /auth/me/ | Update user profile / settings |
+
+**Quizzes**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | /quizzes/generate/ | AI quiz generation via GROQ (Atomic) |
+| GET | /quizzes/ | List user's created quizzes |
+| GET | /quizzes/:id/ | Quiz detail with questions & options |
+| DELETE | /quizzes/:id/ | Delete quiz |
+| GET | /quizzes/stats/ | User's quiz stats (Avg Score, Best Score) |
+
+**Attempts & Leaderboard**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | /attempts/start/:quiz_id/ | Create a new active attempt session |
+| POST | /attempts/:id/submit/ | Submit answers and calculate score |
+| GET | /attempts/:id/ | Retrieve full attempt result with review |
+| GET | /attempts/ | User's full attempt history |
+| GET | /attempts/leaderboard/ | Global Top 10 + current user rank |
 
 ---
 

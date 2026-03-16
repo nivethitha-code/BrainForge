@@ -6,15 +6,19 @@ import Link from 'next/link';
 import { AuthCard } from '@/components/auth/AuthCard';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import { useAuthStore } from '@/store/authStore';
 import api from '@/lib/api';
 
 function VerifyEmailPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { verifyOtp, resendOtp } = useAuthStore();
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
+  const [resending, setResending] = useState(false);
   const [error, setError] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
 
   useEffect(() => {
     const emailParam = searchParams.get('email');
@@ -26,13 +30,26 @@ function VerifyEmailPage() {
     setLoading(true);
     setError('');
     
-    try {
-      await api.post('/api/auth/verify-email/', { email, otp_code: otp });
-      router.push('/login?verified=true');
-    } catch (err) {
-      setError(err.response?.data?.detail || 'Verification failed. Invalid code.');
+    const result = await verifyOtp(email, otp);
+    if (result.success) {
+      router.push('/dashboard');
+    } else {
+      setError(result.error);
     }
     setLoading(false);
+  };
+
+  const handleResend = async () => {
+    setResending(true);
+    setError('');
+    setSuccessMsg('');
+    const result = await resendOtp(email);
+    if (result.success) {
+      setSuccessMsg('New code sent to your email!');
+    } else {
+      setError(result.error);
+    }
+    setResending(false);
   };
 
   return (
@@ -50,13 +67,14 @@ function VerifyEmailPage() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input 
             label="Verification Code" 
-            placeholder="123456" 
-            maxLength={6}
+            placeholder="12345678" 
+            maxLength={8}
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
             required
             error={error}
           />
+          {successMsg && <p className="text-sm text-green-600 text-center font-medium">{successMsg}</p>}
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? 'Verifying...' : 'Verify Email'}
           </Button>
@@ -65,8 +83,12 @@ function VerifyEmailPage() {
         <div className="text-center space-y-4">
           <p className="text-sm text-text-muted">
             Didn't receive a code?{' '}
-            <button className="font-bold text-primary-purple hover:underline transition-colors">
-              Resend Code
+            <button 
+              onClick={handleResend}
+              disabled={resending}
+              className="font-bold text-primary-purple hover:underline transition-colors disabled:opacity-50"
+            >
+              {resending ? 'Resending...' : 'Resend Code'}
             </button>
           </p>
           <Link href="/register" className="block text-sm text-text-muted hover:text-primary-purple transition-colors font-medium">

@@ -19,18 +19,18 @@ export const Mascot = ({ pose = 'wave', size = 'md', className = '' }) => {
 
   return (
     <motion.div
-      animate={{ 
+      animate={{
         y: [0, -8, 0],
       }}
-      transition={{ 
-        duration: 3, 
-        repeat: Infinity, 
-        ease: "easeInOut" 
+      transition={{
+        duration: 3,
+        repeat: Infinity,
+        ease: "easeInOut"
       }}
       className={`relative flex items-center justify-center ${sizes[size]} ${className}`}
     >
-      <img 
-        src={images[pose] || images.wave} 
+      <img
+        src={images[pose] || images.wave}
         alt={`Mascot ${pose}`}
         className="w-full h-full object-contain drop-shadow-2xl"
       />

@@ -37,21 +37,21 @@ export default function QuizPreviewPage() {
   if (!currentQuiz) return <div className="flex justify-center p-20"><Mascot pose="thinking" /></div>;
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 animate-fade-in-up">
+    <div className="max-w-4xl mx-auto space-y-4 animate-fade-in-up">
       <Button variant="ghost" onClick={() => router.push('/dashboard')} className="group">
         <ChevronLeft className="w-5 h-5 mr-1 group-hover:-translate-x-1 transition-transform" />
         Back to Dashboard
       </Button>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 space-y-4">
           <div className="space-y-2">
             <h1 className="text-3xl font-bold text-text-primary capitalize">{currentQuiz.title}</h1>
             <p className="text-text-muted text-lg">Topic: <span className="text-primary-purple font-semibold">{currentQuiz.topic}</span></p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <Card className="flex items-center gap-4 p-4 border-none bg-purple-pale/50" hover={false}>
+          <div className="grid grid-cols-2 gap-3">
+            <Card className="flex items-center gap-3 p-3 border-none bg-purple-pale/50" hover={false}>
               <div className="p-3 bg-white rounded-xl text-primary-purple shadow-sm">
                 <BookOpen className="w-5 h-5" />
               </div>
@@ -60,8 +60,8 @@ export default function QuizPreviewPage() {
                 <p className="text-lg font-bold text-text-primary">{currentQuiz.question_count}</p>
               </div>
             </Card>
-            <Card className="flex items-center gap-4 p-4 border-none bg-purple-pale/50" hover={false}>
-              <div className="p-3 bg-white rounded-xl text-purple-600 shadow-sm">
+            <Card className="flex items-center gap-3 p-3 border-none bg-purple-pale/50" hover={false}>
+              <div className="p-2 bg-white rounded-xl text-purple-600 shadow-sm">
                 <Clock className="w-5 h-5" />
               </div>
               <div className="text-left">
@@ -69,8 +69,8 @@ export default function QuizPreviewPage() {
                 <p className="text-lg font-bold text-text-primary">{formatTime(currentQuiz.time_limit_seconds)}</p>
               </div>
             </Card>
-            <Card className="flex items-center gap-4 p-4 border-none bg-purple-pale/50" hover={false}>
-              <div className="p-3 bg-white rounded-xl text-green-600 shadow-sm">
+            <Card className="flex items-center gap-3 p-3 border-none bg-purple-pale/50" hover={false}>
+              <div className="p-2 bg-white rounded-xl text-green-600 shadow-sm">
                 <BarChart3 className="w-5 h-5" />
               </div>
               <div className="text-left">
@@ -78,8 +78,8 @@ export default function QuizPreviewPage() {
                 <p className="text-lg font-bold text-text-primary capitalize">{currentQuiz.difficulty}</p>
               </div>
             </Card>
-            <Card className="flex items-center gap-4 p-4 border-none bg-purple-pale/50" hover={false}>
-              <div className="p-3 bg-white rounded-xl text-orange-600 shadow-sm">
+            <Card className="flex items-center gap-3 p-3 border-none bg-purple-pale/50" hover={false}>
+              <div className="p-2 bg-white rounded-xl text-orange-600 shadow-sm">
                 <Layers className="w-5 h-5" />
               </div>
               <div className="text-left">
@@ -89,9 +89,9 @@ export default function QuizPreviewPage() {
             </Card>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-2">
             <h3 className="font-bold text-text-primary">Instructions:</h3>
-            <ul className="space-y-2 text-text-muted text-sm">
+            <ul className="space-y-1 text-text-muted text-sm">
               <li className="flex items-start gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary-purple mt-1.5" />
                 You cannot pause the timer once you start the quiz.
@@ -108,7 +108,7 @@ export default function QuizPreviewPage() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-center space-y-8 bg-white rounded-3xl p-8 border border-border-gray shadow-sm">
+        <div className="flex flex-col items-center space-y-6 bg-white rounded-3xl p-6 border border-border-gray shadow-sm h-fit">
           <Mascot pose="study" size="lg" />
           <div className="text-center">
             <h4 className="font-bold text-text-primary">Ready to begin?</h4>

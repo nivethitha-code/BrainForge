@@ -8,11 +8,11 @@ export const AuthCard = ({ title, description, children, mascotPose = 'wave' }) 
       {/* Plum Theme Mix: Variants of #DDA0DD */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,#B070B0_0%,transparent_50%)] opacity-50"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,#FADAFA_0%,transparent_50%)] opacity-40"></div>
-      
+
       {/* Soft Accents */}
       <div className="absolute top-[-10%] left-[-5%] w-[45%] h-[45%] bg-[#FDF2FD] rounded-full blur-[140px] opacity-25 animate-pulse"></div>
       <div className="absolute bottom-[-5%] right-[-5%] w-[40%] h-[40%] bg-[#8E458E] rounded-full blur-[120px] opacity-30"></div>
- 
+
       {/* Left Side - Illustration */}
       <div className="hidden md:flex flex-1 flex-col items-center justify-center p-8 lg:p-12 transition-all relative z-10">
         <div className="relative group">

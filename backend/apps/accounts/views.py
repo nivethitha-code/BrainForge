@@ -7,11 +7,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import EmailOTP
 from .serializers import (
     RegisterSerializer, UserSerializer, VerifyEmailSerializer, 
-    ForgotPasswordSerializer, ResetPasswordSerializer
+    ForgotPasswordSerializer, ResetPasswordSerializer, SupabaseSyncSerializer
 )
 
 
@@ -28,65 +29,38 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
-class RegisterView(APIView):
+class SupabaseSyncView(APIView):
     permission_classes = [permissions.AllowAny]
+    authentication_classes = []
 
     def post(self, request):
-        email = request.data.get('email')
-        if email:
-            # If user exists but isn't verified, delete them so they can register again
-            unverified_user = User.objects.filter(email=email, is_verified=False).first()
-            if unverified_user:
-                unverified_user.delete()
-
-        serializer = RegisterSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            
-            # Generate and send OTP
-            otp_code = str(random.randint(100000, 999999))
-            EmailOTP.objects.create(
-                user=user,
-                otp_code=otp_code,
-                purpose='verify_email',
-                expires_at=timezone.now() + timedelta(minutes=10)
-            )
-            from core.email_service import EmailService
-            email_service = EmailService()
-            email_service.send_otp_email(user.email, otp_code)
-            
-            return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class VerifyEmailView(APIView):
-    permission_classes = [permissions.AllowAny]
-
-    def post(self, request):
-        serializer = VerifyEmailSerializer(data=request.data)
+        serializer = SupabaseSyncSerializer(data=request.data)
         if serializer.is_valid():
             email = serializer.validated_data['email']
-            otp_code = serializer.validated_data['otp_code']
-            
-            otp = EmailOTP.objects.filter(
-                user__email=email,
-                otp_code=otp_code,
-                purpose='verify_email',
-                is_used=False,
-                expires_at__gt=timezone.now()
-            ).first()
-            
-            if otp:
-                user = otp.user
+            username = serializer.validated_data.get('username')
+
+            # Get or create user
+            user, created = User.objects.get_or_create(
+                email=email,
+                defaults={
+                    'username': username or email.split('@')[0],
+                    'is_verified': True,
+                }
+            )
+
+            if not created and not user.is_verified:
                 user.is_verified = True
                 user.save()
-                otp.is_used = True
-                otp.save()
-                
-                from core.email_service import EmailService # This line was already present, ensuring it remains.
-                email_service = EmailService()
-                email_service.send_welcome_email(user.email, user.username)
-                return Response({"detail": "Email successfully verified."}, status=status.HTTP_200_OK)
-            return Response({"detail": "Invalid or expired OTP."}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Generate Django tokens for the synced user
+            refresh = RefreshToken.for_user(user)
+            
+            return Response({
+                "user": UserSerializer(user).data,
+                "access": str(refresh.access_token),
+                "refresh": str(refresh),
+                "detail": "Successfully synced with Supabase"
+            }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class AcceptTermsView(APIView):
@@ -106,3 +80,8 @@ class ProfileView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request):
+        user = request.user
+        user.delete()
+        return Response({"detail": "Account deleted successfully."}, status=status.HTTP_204_NO_CONTENT)

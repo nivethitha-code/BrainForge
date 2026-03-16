@@ -7,13 +7,13 @@ import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { useAuthStore } from '@/store/authStore';
-import { User, Mail, Shield, Bell, LogOut, Camera } from 'lucide-react';
+import { User, Mail, Shield, Bell, LogOut, Camera, Trash2 } from 'lucide-react';
 import { Mascot } from '@/components/mascots/Mascot';
 import { cn } from '@/lib/utils';
 
 export default function ProfilePage() {
   const router = useRouter();
-  const { user, token, logout, updateProfile } = useAuthStore();
+  const { user, token, logout, updateProfile, deleteAccount } = useAuthStore();
   const [activeTab, setActiveTab] = useState('personal');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -118,6 +118,19 @@ export default function ProfilePage() {
     } else {
       setError(res.error?.detail || 'Failed to update password');
       setLoading(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (window.confirm('⚠️ Are you absolutely sure? This will permanently delete your account and all your quiz data. This action cannot be undone.')) {
+      setLoading(true);
+      const res = await deleteAccount();
+      if (res.success) {
+        router.push('/login');
+      } else {
+        setError(res.error || 'Failed to delete account');
+        setLoading(false);
+      }
     }
   };
 
@@ -323,6 +336,17 @@ export default function ProfilePage() {
             >
               <LogOut className="w-5 h-5" />
               Sign Out
+            </Button>
+          </div>
+          <div className="pt-2">
+            <Button 
+              variant="ghost" 
+              onClick={handleDeleteAccount}
+              disabled={loading}
+              className="w-full justify-start gap-3 text-text-muted hover:text-error-red hover:bg-red-50 group"
+            >
+              <Trash2 className="w-5 h-5 group-hover:animate-pulse" />
+              <span className="font-bold">Delete Account</span>
             </Button>
           </div>
         </div>

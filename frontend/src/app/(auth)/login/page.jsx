@@ -26,10 +26,6 @@ export default function LoginPage() {
       router.push('/dashboard');
     } else {
       setError(result.error);
-      if (result.error.includes('verified')) {
-        // Redirect to verify if not verified
-        router.push(`/verify-email?email=${encodeURIComponent(email)}`);
-      }
     }
     setLoading(false);
   };

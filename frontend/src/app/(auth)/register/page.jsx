@@ -6,10 +6,12 @@ import { useRouter } from 'next/navigation';
 import { AuthCard } from '@/components/auth/AuthCard';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import { useAuthStore } from '@/store/authStore';
 import api from '@/lib/api';
 
 export default function RegisterPage() {
   const router = useRouter();
+  const register = useAuthStore((state) => state.register);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -23,17 +25,11 @@ export default function RegisterPage() {
     setLoading(true);
     setError('');
     
-    try {
-      await api.post('/api/auth/register/', formData);
+    const result = await register(formData.email, formData.password, formData.username);
+    if (result.success) {
       router.push(`/verify-email?email=${encodeURIComponent(formData.email)}`);
-    } catch (err) {
-      const data = err.response?.data;
-      if (data) {
-        const firstError = Object.values(data)[0];
-        setError(Array.isArray(firstError) ? firstError[0] : (data.detail || 'Registration failed.'));
-      } else {
-        setError('Registration failed. Try again.');
-      }
+    } else {
+      setError(result.error);
     }
     setLoading(false);
   };

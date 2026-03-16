@@ -49,3 +49,8 @@ class ResetPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField()
     otp_code = serializers.CharField(max_length=6)
     new_password = serializers.CharField(write_only=True)
+
+class SupabaseSyncSerializer(serializers.Serializer):
+    supabase_id = serializers.CharField()
+    email = serializers.EmailField()
+    username = serializers.CharField(required=False, allow_blank=True)
