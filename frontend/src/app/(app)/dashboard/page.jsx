@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import api from '@/lib/api';
 import { WelcomeBanner } from '@/components/dashboard/WelcomeBanner';
 import { StatsCard } from '@/components/dashboard/StatsCard';
@@ -44,6 +44,12 @@ export default function DashboardPage() {
     { label: 'Average Score', value: `${statsData.average_score}%`, icon: Target, color: 'green' },
     { label: 'Best Score', value: statsData.best_score.toString(), icon: TrendingUp, color: 'orange' },
   ];
+
+  const storeStats = ()
+
+  const statistics = useMemo(() => {
+    
+  });
 
   return (
     <div className="space-y-8 animate-fade-in-up">

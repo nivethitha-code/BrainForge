@@ -6,6 +6,7 @@ import { Plus } from 'lucide-react';
 import Link from 'next/link';
 
 export const WelcomeBanner = ({ username }) => {
+  console.log(username);
   return (
     <Card className="relative bg-gradient-to-r from-primary-purple to-purple-dark border-none p-8 lg:p-12 overflow-hidden" hover={false}>
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
